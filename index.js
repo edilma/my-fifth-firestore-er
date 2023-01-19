@@ -35,20 +35,51 @@ const db = getFirestore();
 // )
 // .catch (console.error)
 
-db.collection("music")
-    .get()
-    .then(
-        collection =>{
-             const docs = collection.docs.map(
-                doc =>{
-                    let item = doc.data();
-                    item.id = doc.id;
-                    return item;
-                }
+// db.collection("music")
+//     .get()p
+//     .then(
+//         collection =>{
+//              const docs = collection.docs.map(
+//                 doc =>{
+//                     let item = doc.data();
+//                     item.id = doc.id;
+//                     return item;
+//                 }
                 
-             )
-             console.table(docs);
-        }
+//              )
+//              console.table(docs);
+//         }
         
-    )
-    .catch(console.error);
+//     )
+//     .catch(console.error);
+
+const musicCollection = db.collection("music");
+
+const song = {
+        name: "Money in the Grave",
+        artist : "Drake",
+        genre : "Hip-Hop",
+        year: 2020
+}
+
+// musicCollection.add (song)
+//     .then ( message=> {
+//         console.log ("Song has been aded ", message.id)
+//     });
+
+musicCollection
+        .get()
+        .then(x =>{
+            const songs = x.docs.map(
+                doc =>
+                { 
+                    let song = doc.data();
+                    song.id = doc.id;
+                    return song;
+                }
+            )
+            console.table(songs)
+        }
+
+        )     
+        .catch(console.error)
